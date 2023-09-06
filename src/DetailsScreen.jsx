@@ -10,6 +10,10 @@ function DetailsScreen({ navigation }) {
         title="Go back to Home"
         onPress={() => navigation.navigate('Home')}
       />
+      <Button
+        title="Go to Entity Page"
+        onPress={() => navigation.navigate('EntityList')}
+      />
     </View>
   );
 }
