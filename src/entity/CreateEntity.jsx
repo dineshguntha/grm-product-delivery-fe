@@ -134,6 +134,7 @@
 
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { saveEntitty } from '../services/Constants';
 
 function CreateEntity({ navigation }) {
   const [name, setName] = useState('');
@@ -149,10 +150,10 @@ function CreateEntity({ navigation }) {
     };
 
     // Define the URL of your API
-    const apiUrl = 'http://192.168.43.186:8080/entity/save'; // Replace with your actual API URL
-     console.log("url",entityData,apiUrl);
+    // const apiUrl = 'http:// 192.168.43.186:8080/entity/save'; // Replace with your actual API URL
+     console.log("url",entityData,saveEntitty);
     // Make a POST request to the API
-    fetch(apiUrl, {
+    fetch(saveEntitty, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
