@@ -20,6 +20,7 @@ export default function App() {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Details" component={DetailsScreen} />
         <Stack.Screen name="EntityList" component={EntityList} />
+        <Stack.Screen name="EditEntity" component={EditEntity} />
        <Stack.Screen name="Home" component={HomeScreen} />
       
        <Stack.Screen name="EntityCreate" component={CreateEntity} />

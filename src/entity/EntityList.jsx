@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Import the icon library you prefer
-import { findAllEntity } from '../services/Constants';
+import { deletetById, findAllEntity } from '../services/Constants';
 
 function EntityList({ navigation }) {
   const [entityListData, setEntityListData] = useState([]);
@@ -58,9 +58,9 @@ function EntityList({ navigation }) {
       // Perform the delete operation on the server using the entityId
       // After successful deletion, you can update the state or refresh the data as needed.
       // Example:
-      //  await fetch(`http://192.168.43.186:8080/deleteById/${entityId}`, {
-      //   method: 'DELETE',
-      // });
+       await fetch(`${deletetById}/${entityId}`, {
+        method: 'DELETE',
+      });
       // Fetch data again to update the list
       fetchData();
     } catch (error) {
