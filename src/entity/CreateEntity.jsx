@@ -221,14 +221,18 @@ function CreateEntity({ navigation }) {
         />
       </View>
       {/* <Button title="Submit" onPress={handleSubmit} /> */}
+      <View style={{marginVertical: 10}}>
       <Button
           title="Submit"
           onPress= {handleSubmit}
         />
+        </View>
+        <View style={{marginVertical: 10}}>
       <Button
         title="View"
         onPress={() => navigation.navigate('EntityList')}
       />
+      </View>
     </View>
   );
 }

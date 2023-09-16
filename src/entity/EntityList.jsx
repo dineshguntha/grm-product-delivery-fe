@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Import the icon library you prefer
 import { deletetById, findAllEntity } from '../services/Constants';
 
@@ -38,19 +38,18 @@ function EntityList({ navigation }) {
             style={styles.editButton}
             onPress={() => navigation.navigate('EditEntity', { entityId: item.id })}
           >
-            <Icon name="pencil" size={20} color="white" />
+            <Icon name="pencil" size={20} color="blue" />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.deleteButton}
             onPress={() => handleDeleteItem(item.id)}
           >
-            <Icon name="trash" size={20} color="white" />
+            <Icon name="trash" size={20} color="red" />
           </TouchableOpacity>
         </View>
       </View>
     </View>
   );
-  
 
   // Function to handle item deletion
   const handleDeleteItem = async (entityId) => {
@@ -58,7 +57,7 @@ function EntityList({ navigation }) {
       // Perform the delete operation on the server using the entityId
       // After successful deletion, you can update the state or refresh the data as needed.
       // Example:
-       await fetch(`${deletetById}/${entityId}`, {
+      await fetch(`${deletetById}/${entityId}`, {
         method: 'DELETE',
       });
       // Fetch data again to update the list
@@ -69,39 +68,20 @@ function EntityList({ navigation }) {
   };
 
   return (
- <>
-  <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-    <Button
-      title="Back"
-      onPress={() => navigation.goBack()}
-    />
-    <Button
-      title="Create"
-      onPress={() => navigation.navigate('EntityCreate')}
-    />
-  </View>
-  <View>
-    <Text style={styles.pageTitle}>Entity List</Text>
-    <FlatList
-      data={entityListData}
-      keyExtractor={(item, index) => index.toString()}
-      renderItem={renderListItem} 
-    />
-  </View>
-  <View style={{ flex: 1, padding: 16 }}>
-    {/* Content for the main page */}
-    <Text>Main Page Content Goes Here</Text>
-    <Button
-      title="Click Me"
-      onPress={() => {
-        alert('Button Clicked!');
-        navigation.navigate('Home');
-      }}
-    />
-  </View>
-  {/* <SubPage /> Render the nested subpage */}
-</>
-   
+    <View>
+      <TouchableOpacity
+        style={styles.createButton}
+        onPress={() => navigation.navigate('EntityCreate')}
+      >
+        <Icon name="plus" size={20} color="green" />
+      </TouchableOpacity>
+      <Text style={styles.pageTitle}>EntityList</Text>
+      <FlatList
+        data={entityListData}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={renderListItem}
+      />
+    </View>
   );
 }
 
@@ -137,16 +117,16 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   editButton: {
-    backgroundColor: 'blue',
-    padding: 6,
-    borderRadius: 0,
-    marginRight: 5,
+    marginRight: 4,
   },
-  deleteButton: {
-    backgroundColor: 'red',
-    padding: 6,
-    borderRadius: 0,
+  createButton: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    padding: 10,
   },
 });
 
 export default EntityList;
+

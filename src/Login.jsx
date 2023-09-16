@@ -10,7 +10,7 @@ const LoginScreen = ({navigation}) => {
     // For this example, let's just print the email and password
     console.log('Email:', email);
     console.log('Password:', password);
-    navigation.navigate('EntityList');
+    navigation.navigate('Home');
   };
 
   return (

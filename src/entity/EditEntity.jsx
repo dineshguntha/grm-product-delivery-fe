@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { findAllEntity, update } from '../services/Constants';
 
@@ -9,36 +9,36 @@ function EditEntity({ route, navigation }) {
   const [accountNumber, setAccountNumber] = useState('');
 
   // Fetch entity details by entityId and populate the state
-  // This code depends on your API structure
-  // You may need to create a fetchEntityById function
-  // and replace it with your actual API call
   const fetchEntityDetails = async () => {
     try {
-      // Fetch entity details based on entityId
-      const response = await fetch(findAllEntity);
+      const response = await fetch(findAllEntity); // Replace with your API endpoint
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      setName(data.name);
-      setGst(data.gst);
-      setAccountNumber(data.accountNumber);
+      const entityData = data.find((entity) => entity.id === entityId);
+      if (entityData) {
+        setName(entityData.name);
+        setGst(entityData.gst);
+        setAccountNumber(entityData.accountNumber);
+      }
     } catch (error) {
       console.error('Error fetching entity details:', error);
     }
   };
 
   // Call fetchEntityDetails when the component mounts
-  React.useEffect(() => {
+  useEffect(() => {
     fetchEntityDetails();
   }, []);
 
   const handleSave = async () => {
+    console.log('updated data:', name,gst,accountNumber);
     try {
       // Send edited data to the server
       await fetch(update, {
         method: 'PUT',
-        body: JSON.stringify({ name, gst, accountNumber }),
+        body: JSON.stringify({id:entityId, name, gst, accountNumber }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -57,7 +57,7 @@ function EditEntity({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text>Edit Entity</Text>
+      <Text style={styles.title}>Edit Entity</Text>
       <TextInput
         style={styles.input}
         placeholder="Name"
@@ -76,8 +76,12 @@ function EditEntity({ route, navigation }) {
         value={accountNumber}
         onChangeText={(text) => setAccountNumber(text)}
       />
+      <View style={{marginVertical: 10}}>
       <Button title="Save" onPress={handleSave} />
+      </View>
+      <View style={{marginVertical: 10}}>
       <Button title="Cancel" onPress={handleCancel} />
+      </View>
     </View>
   );
 }
@@ -87,12 +91,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
   input: {
-    width: 200,
-    borderBottomWidth: 1,
+    width: '100%',
+    height: 40,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    paddingHorizontal: 10,
     marginBottom: 10,
   },
+
 });
 
 export default EditEntity;

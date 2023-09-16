@@ -6,7 +6,11 @@ import DetailsScreen from './src/DetailsScreen';
 import HelloWorld from './src/HelloWorld';
 import LoginScreen from './src/Login';
 import EntityList from './src/entity/EntityList';
-import CreateEntity from './src/entity/CreateEntity';
+import CreateEntity from './src/entity/CreateEntity'
+import EditEntity from './src/entity/EditEntity';
+import UserPage from './src/UserPage';
+import UsernameForm from './src/UserPage';
+import UserList from './src/UserList';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,12 +22,13 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
+        {/* <Stack.Screen name="Details" component={DetailsScreen} /> */}
         <Stack.Screen name="EntityList" component={EntityList} />
-        <Stack.Screen name="EditEntity" component={EditEntity} />
+        <Stack.Screen name="EditEntity" component={EditEntity}/>
        <Stack.Screen name="Home" component={HomeScreen} />
-      
-       <Stack.Screen name="EntityCreate" component={CreateEntity} />
+       <Stack.Screen name="UserList" component={UserList}/>
+       <Stack.Screen name="UserPage" component={UsernameForm}/>
+      <Stack.Screen name="EntityCreate" component={CreateEntity} />
       </Stack.Navigator>
 
     </NavigationContainer>
