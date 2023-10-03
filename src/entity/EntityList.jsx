@@ -1,29 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome'; // Import the icon library you prefer
-import { deletetById, findAllEntity } from '../services/Constants';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { Entypo } from '@expo/vector-icons';
+import { fetchALlEnitites } from '../services/EntityService';
 
 function EntityList({ navigation }) {
   const [entityListData, setEntityListData] = useState([]);
 
-  // Function to fetch data from the server
-  const fetchData = async () => {
-    try {
-      const response = await fetch(findAllEntity); // Replace with your API endpoint
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-      setEntityListData(data); // Update the state with the fetched data
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
+  
 
-  // Fetch data when the component mounts
+  // useEffect(async() => {
+  //   setEntityListData(await fetchALlEnitites());
+  // }, []);
   useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetchALlEnitites();
+        setEntityListData(response);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+  
     fetchData();
   }, []);
+  
 
   const renderListItem = ({ item }) => (
     <View style={styles.itemContainer}>
@@ -38,29 +39,24 @@ function EntityList({ navigation }) {
             style={styles.editButton}
             onPress={() => navigation.navigate('EditEntity', { entityId: item.id })}
           >
-            <Icon name="pencil" size={20} color="blue" />
+            <FontAwesome5 name="edit" size={20} color="#007bff" />{/* Replace with FontAwesome5 icon */}
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.deleteButton}
             onPress={() => handleDeleteItem(item.id)}
           >
-            <Icon name="trash" size={20} color="red" />
+            <FontAwesome5 name="trash-alt" size={20} color="red" />{/* Replace with FontAwesome5 icon */}
           </TouchableOpacity>
         </View>
       </View>
     </View>
   );
 
-  // Function to handle item deletion
   const handleDeleteItem = async (entityId) => {
     try {
-      // Perform the delete operation on the server using the entityId
-      // After successful deletion, you can update the state or refresh the data as needed.
-      // Example:
       await fetch(`${deletetById}/${entityId}`, {
         method: 'DELETE',
       });
-      // Fetch data again to update the list
       fetchData();
     } catch (error) {
       console.error('Error deleting item:', error);
@@ -68,14 +64,16 @@ function EntityList({ navigation }) {
   };
 
   return (
-    <View>
-      <TouchableOpacity
-        style={styles.createButton}
-        onPress={() => navigation.navigate('EntityCreate')}
-      >
-        <Icon name="plus" size={20} color="green" />
-      </TouchableOpacity>
-      <Text style={styles.pageTitle}>EntityList</Text>
+    <View style={styles.container}>
+     <TouchableOpacity
+  style={styles.createButton}
+  onPress={() => navigation.navigate('EntityCreate')}
+>
+  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+    <Entypo name="add-to-list" size={24} color="green" />
+  </View>
+</TouchableOpacity>
+<Text style={styles.pageTitle}>Entity List</Text>
       <FlatList
         data={entityListData}
         keyExtractor={(item, index) => index.toString()}
@@ -86,15 +84,20 @@ function EntityList({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white', // Premium white background
+  },
   pageTitle: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 10,
+    margin: 10,
+    color: '#333', // Text color
   },
   itemContainer: {
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
-    padding: 10,
+    padding: 16,
   },
   topRow: {
     flexDirection: 'row',
@@ -115,9 +118,15 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   editButton: {
-    marginRight: 4,
+    marginRight: 12,
+    marginBottom:45,
+  },
+  deleteButton: {
+    marginLeft: 8,
+    marginBottom:45,
   },
   createButton: {
     flexDirection: 'row',
@@ -129,4 +138,3 @@ const styles = StyleSheet.create({
 });
 
 export default EntityList;
-

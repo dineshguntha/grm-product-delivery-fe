@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, ImageBackground } from 'react-native';
 
-const LoginScreen = ({navigation}) => {
+
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -14,23 +15,29 @@ const LoginScreen = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Login</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        onChangeText={text => setEmail(text)}
-        value={email}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        onChangeText={text => setPassword(text)}
-        value={password}
-        secureTextEntry
-      />
-      <Button title="Login" onPress={() => handleLogin()} />
-    </View>
+    <ImageBackground
+    source={{ uri: 'file:///D:/images/loginpage.jpg' }}
+    style={styles.backgroundImage}
+  >
+      <View style={styles.container}>
+        <Text style={styles.header}>Welcome!</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          onChangeText={(text) => setEmail(text)}
+          value={email}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          onChangeText={(text) => setPassword(text)}
+          value={password}
+          secureTextEntry
+        />
+        <Button title="Login" onPress={() => handleLogin()} />
+        <Text style={styles.forgotPassword}>Forgot Password?</Text>
+      </View>
+     </ImageBackground>
   );
 };
 
@@ -40,18 +47,34 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent white background
+    borderRadius: 10,
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
   },
   header: {
-    fontSize: 24,
+    fontSize: 28,
+    fontWeight: 'bold',
     marginBottom: 20,
+    color: '#333', // Dark gray text color
   },
   input: {
     width: '100%',
     height: 40,
-    borderColor: 'gray',
+    borderColor: '#ccc',
     borderWidth: 1,
-    marginBottom: 10,
+    marginBottom: 20,
     paddingLeft: 10,
+    borderRadius: 5,
+    backgroundColor: 'white', // White input background
+  },
+  forgotPassword: {
+    fontSize: 16,
+    color: '#555', // Medium gray text color
+    textDecorationLine: 'underline',
   },
 });
 

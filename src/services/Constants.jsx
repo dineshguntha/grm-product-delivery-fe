@@ -1,7 +1,13 @@
-export const url="http://192.168.34.186:8080";
+export const url="http://192.168.43.186:8080";
 export const saveEntitty=`${url}/entity/save`;
 export const findAllEntity=`${url}/entity/findAll`;
 export const deletetById=`${url}/entity/deleteById`;
 export const update=`${url}/entity/update`;
-export const user=`${url}/api/v1/register`;
-export const userlist=`{url}/api/v1/user`;
+export const user=`${url}/user/registerUser`;
+export const userlist=`${url}/user/getAllUsers`;
+export const deluser=`${url}/user/deleteUser`;
+export const updateuser=`${url}/user/updateUser`;
+export const createproduct=`${url}/productTemplate/create`;
+export const productlist=`${url}/productTemplate/findAll`;
+export const deleteProduct=`${url}/productTemplate/deleteById`;
+export const updateProducts=`${url}/productTemplate/update`;

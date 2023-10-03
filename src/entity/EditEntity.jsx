@@ -33,12 +33,12 @@ function EditEntity({ route, navigation }) {
   }, []);
 
   const handleSave = async () => {
-    console.log('updated data:', name,gst,accountNumber);
+    console.log('updated data:', name, gst, accountNumber);
     try {
       // Send edited data to the server
       await fetch(update, {
         method: 'PUT',
-        body: JSON.stringify({id:entityId, name, gst, accountNumber }),
+        body: JSON.stringify({ id: entityId, name, gst, accountNumber }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -92,11 +92,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
+    backgroundColor: '#fff', // White background
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: '#333', // Text color
   },
   input: {
     width: '100%',
@@ -105,9 +107,9 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 5,
     paddingHorizontal: 10,
-    marginBottom: 10,
+    marginBottom: 20, // Increased margin for better spacing
   },
-
 });
 
 export default EditEntity;
+
