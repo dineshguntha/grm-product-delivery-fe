@@ -23,7 +23,7 @@ const HomeScreen = ({ navigation }) => {
       
       <TouchableOpacity
         style={[styles.button, styles.buttonMargin]}
-        onPress={() => navigation.navigate('CreateProduct')}
+        onPress={() => navigation.navigate('ProductList')}
       >
         <FontAwesome5 name="shopping-cart" size={20} color="#007bff" />
         <Text style={styles.buttonText}>Product Template</Text>

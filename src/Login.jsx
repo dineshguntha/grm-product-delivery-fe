@@ -15,10 +15,6 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return (
-    <ImageBackground
-    source={{ uri: 'file:///D:/images/loginpage.jpg' }}
-    style={styles.backgroundImage}
-  >
       <View style={styles.container}>
         <Text style={styles.header}>Welcome!</Text>
         <TextInput
@@ -37,7 +33,6 @@ const LoginScreen = ({ navigation }) => {
         <Button title="Login" onPress={() => handleLogin()} />
         <Text style={styles.forgotPassword}>Forgot Password?</Text>
       </View>
-     </ImageBackground>
   );
 };
 
@@ -49,11 +44,6 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent white background
     borderRadius: 10,
-  },
-  backgroundImage: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
   },
   header: {
     fontSize: 28,

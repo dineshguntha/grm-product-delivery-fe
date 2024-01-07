@@ -11,6 +11,7 @@ import UserList from './src/user/UserList';
 import EditUser from './src/user/EditUser';
 import CreateProduct from './src/product/createproduct';
 import EditProduct from './src/product/editproduct';
+import ProductList from './src/product/productList';
 
 
 const Stack = createNativeStackNavigator();
@@ -79,6 +80,13 @@ export default function App() {
         headerTintColor: 'white', // Change the text color if needed
       }}/>
       <Stack.Screen name="EntityCreate" component={CreateEntity} 
+      options={{
+        headerStyle: {
+          backgroundColor: '#003f88', // Change this to your desired color
+        },
+        headerTintColor: 'white', // Change the text color if needed
+      }}/>
+      <Stack.Screen name="ProductList" component={ProductList} 
       options={{
         headerStyle: {
           backgroundColor: '#003f88', // Change this to your desired color

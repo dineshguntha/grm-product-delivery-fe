@@ -8,10 +8,6 @@ function EntityList({ navigation }) {
   const [entityListData, setEntityListData] = useState([]);
 
   
-
-  // useEffect(async() => {
-  //   setEntityListData(await fetchALlEnitites());
-  // }, []);
   useEffect(() => {
     async function fetchData() {
       try {

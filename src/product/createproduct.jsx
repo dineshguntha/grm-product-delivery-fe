@@ -5,6 +5,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { Picker } from 'react-native-web';
 import { createproduct, deleteProduct, productlist } from '../services/Constants';
 import { fetchALlEnitites } from '../services/EntityService';
+import { fetchAllUsers } from '../services/UserService';
 
 function CreateProduct({navigation}) {
   const [entityName, setEntityName] = useState('');
@@ -19,35 +20,15 @@ function CreateProduct({navigation}) {
     categoryType: '',
   });
   const[entity,setEntity]=useState([]);
+  const[user,setUser]=useState([]);
 
-  useEffect(() => {
-    if (showAccordion) {
-      // Fetch existing data using a GET request
-      axios
-        .get(productlist)
-        .then((response) => {
-          // Extract the relevant data (skuName, originalCost, sellingCost)
-          const formattedData = response.data.map((item) => ({
-            skuName: item.products[0].skuName,
-            originalCost: item.products[0].originalCost,
-            sellingCost: item.products[0].sellingCost,
-            categoryType: item.products[0].categoryType,
-            id: item.id, // Ensure each item has a unique identifier
-          }));
-          setProducts(formattedData);
-          console.log('product',formattedData);
-        })
-        .catch((error) => {
-          console.error('Error fetching data:', error);
-        });
-    }
-  }, [showAccordion]);
 
   const toggleAccordion = () => {
     setShowAccordion(!showAccordion);
   };
 
   const addProduct = () => {
+    //products.push(p)
     setProducts([...products, newProduct]);
     setNewProduct({
       skuName: '',
@@ -136,6 +117,21 @@ function CreateProduct({navigation}) {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await fetchAllUsers();
+        setUser(data);
+        console.log("User", user);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+  
+    fetchData();
+  }, []);
+
+
   return (
     <View style={styles.container}>
       <View style={styles.formGroup}>
@@ -168,6 +164,8 @@ function CreateProduct({navigation}) {
           onValueChange={(itemValue) => setUsername(itemValue)}
         >
           {/* Add options for User Name */}
+          <Picker.Item label="Select User Name" value="" />
+          {Array.isArray(user)?user?.map(item => { return <Picker.Item label={item.loginName} value={item.loginName} />}):<></>}
         </Picker>
       </View>
       <TouchableOpacity onPress={toggleAccordion} style={styles.addButton}>

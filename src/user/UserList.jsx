@@ -3,26 +3,42 @@ import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { AntDesign } from '@expo/vector-icons';
 import { deluser, userlist } from '../services/Constants';
+import { fetchAllUsers } from '../services/UserService';
 
 function UserList({ navigation }) {
   const [users, setUsers] = useState([]);
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(userlist);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-      setUsers(data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await fetch(userlist);
+  //     if (!response.ok) {
+  //       throw new Error('Network response was not ok');
+  //     }
+  //     const data = await response.json();
+  //     setUsers(data);
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //   }
+  // };
 
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+
+  
   useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetchAllUsers();
+        setUsers(response);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+  
     fetchData();
   }, []);
+
 
   const handleDeleteItem = async (userId) => {
     console.log("userId", userId);
